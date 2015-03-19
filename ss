@@ -9,10 +9,11 @@ tmp="$(mktemp -u --suffix=.png)"
 # get imgur upload function
 DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$DIR/imgurbash.sh"
+source "$DIR/puush_upload.sh"
 
 # grab rectangle (remove -r option if using the upstream scrot)
 sleep .1
-scrot -sr "$tmp"
+scrot -s "$tmp"
 
 if [ $? -eq 0 ]; then
 	failed=0
@@ -21,6 +22,12 @@ if [ $? -eq 0 ]; then
 	if [ $# -gt 0 ] && [ $1 = "--imgur" ]; then
 		# upload screenshot to imgur
 		link="$(upload2imgur "$imgur_api_key" "$tmp")"
+		if [ $? -ne 0 ]; then
+			failed=1
+		fi
+	elif [ $# -gt 0 ] && [ $1 = "--puush" ]; then
+		# upload screenshot to puush
+		link="$(upload2puush "$puush_api_key" "$tmp")"
 		if [ $? -ne 0 ]; then
 			failed=1
 		fi
