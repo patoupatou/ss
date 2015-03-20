@@ -45,7 +45,7 @@ if [ $? -eq 0 ]; then
 	# failed?
 	if [ $failed -eq 0 ]; then
 		# copy to clipboard only if successful
-		echo -n "$link" | xsel -b
+		echo -n "$link" | xclip -selection c
 	fi
 else
 	# screenshot fail

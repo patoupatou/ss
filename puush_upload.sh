@@ -1,3 +1,5 @@
+#!/bin/sh
+
 upload2puush(){
 	api_key="$1"
 	filename="$2"
